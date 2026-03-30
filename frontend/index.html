@@ -1,0 +1,196 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SlideForge AI</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f1117;color:#e6edf3;min-height:100vh}
+.header{background:linear-gradient(135deg,#1a1a2e,#16213e);padding:20px 40px;border-bottom:1px solid #30363d;display:flex;align-items:center;gap:16px}
+.logo{font-size:24px;font-weight:800;color:#ff6b00}.logo span{color:#fff}
+.tagline{font-size:13px;color:#8b949e;margin-top:2px}
+.main{max-width:1100px;margin:0 auto;padding:40px 20px}
+.hero{text-align:center;margin-bottom:48px}
+.hero h1{font-size:clamp(28px,4vw,44px);font-weight:800;margin-bottom:12px}
+.hero h1 span{color:#ff6b00}
+.hero p{color:#8b949e;font-size:17px;max-width:600px;margin:0 auto}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:768px){.grid{grid-template-columns:1fr}}
+.card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:28px}
+.card h2{font-size:17px;font-weight:700;margin-bottom:20px}
+label{display:block;font-size:13px;color:#8b949e;margin-bottom:6px;margin-top:14px}
+label:first-of-type{margin-top:0}
+input,select,textarea{width:100%;background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:10px 14px;color:#e6edf3;font-size:14px;outline:none;transition:border-color .2s}
+input:focus,select:focus,textarea:focus{border-color:#ff6b00}
+textarea{resize:vertical;min-height:140px;font-family:inherit}
+.color-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.btn{display:block;width:100%;padding:14px;background:#ff6b00;color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;margin-top:24px;transition:opacity .2s}
+.btn:hover{opacity:.88}.btn:disabled{opacity:.35;cursor:not-allowed}
+.btn-sec{background:#1c2128;color:#e6edf3;border:1px solid #30363d;margin-top:10px}
+.upload-area{border:2px dashed #30363d;border-radius:10px;padding:32px;text-align:center;cursor:pointer;transition:border-color .2s}
+.upload-area:hover{border-color:#ff6b00}
+.upload-area .ico{font-size:36px;margin-bottom:8px}
+.upload-area p{color:#8b949e;font-size:14px}
+.tpl-list{margin-top:16px;display:flex;flex-direction:column;gap:8px}
+.tpl-item{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;font-size:13px;cursor:pointer}
+.tpl-item:hover{border-color:#ff6b00}
+.status{margin-top:20px;padding:14px;border-radius:8px;font-size:14px;display:none}
+.status.loading{background:rgba(255,107,0,.1);border:1px solid rgba(255,107,0,.3);color:#ff6b00;display:block}
+.status.success{background:rgba(0,204,102,.1);border:1px solid rgba(0,204,102,.3);color:#00cc66;display:block}
+.status.error{background:rgba(255,68,68,.1);border:1px solid rgba(255,68,68,.3);color:#ff4444;display:block}
+.dl-btn{display:none;width:100%;padding:14px;background:#00cc66;color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;margin-top:12px;text-align:center;text-decoration:none}
+.dl-btn.show{display:block}
+.steps{display:flex;gap:8px;margin-bottom:32px;flex-wrap:wrap;justify-content:center}
+.step{background:#161b22;border:1px solid #30363d;border-radius:20px;padding:6px 16px;font-size:13px;color:#8b949e;display:flex;align-items:center;gap:6px}
+.step .num{background:#ff6b00;color:#fff;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
+</style>
+</head>
+<body>
+<div class="header">
+  <div>
+    <div class="logo">Slide<span>Forge</span> AI</div>
+    <div class="tagline">Gerador de Apresentações com Identidade Visual  Powered by Amazon Bedrock</div>
+  </div>
+</div>
+<div class="main">
+  <div class="hero">
+    <h1>Transforme seu briefing em uma<br><span>apresentação profissional</span></h1>
+    <p>Cole o conteúdo do Word, defina as cores da empresa e gere um PowerPoint formatado em segundos.</p>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="num">1</span> Configure a empresa</div>
+    <div class="step"><span class="num">2</span> Cole o conteúdo</div>
+    <div class="step"><span class="num">3</span> Gere o PPT</div>
+    <div class="step"><span class="num">4</span> Baixe e apresente</div>
+  </div>
+  <div class="grid">
+    <div>
+      <div class="card">
+        <h2> Identidade Visual</h2>
+        <label>Empresa apresentando</label>
+        <input type="text" id="company_name" value="DataVision Consultoria" placeholder="Sua empresa">
+        <label>Cliente / Audiência</label>
+        <input type="text" id="client_name" placeholder="Ex: Empresa XYZ">
+        <label>Tipo de documento</label>
+        <select id="doc_type">
+          <option value="proposta">Proposta Comercial</option>
+          <option value="apresentacao">Apresentação Executiva</option>
+          <option value="relatorio">Relatório de Resultados</option>
+          <option value="workshop">Material de Workshop</option>
+        </select>
+        <label>Número de slides</label>
+        <input type="number" id="num_slides" value="10" min="5" max="20">
+        <label>Cores da empresa</label>
+        <div class="color-row">
+          <div>
+            <label style="margin-top:0">Cor primária</label>
+            <input type="color" id="primary_color" value="#1a3a5c" style="height:42px;cursor:pointer">
+          </div>
+          <div>
+            <label style="margin-top:0">Cor de destaque</label>
+            <input type="color" id="accent_color" value="#ff6b00" style="height:42px;cursor:pointer">
+          </div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:24px">
+        <h2> Templates da Empresa</h2>
+        <div class="upload-area" onclick="document.getElementById('tpl_file').click()">
+          <div class="ico"></div>
+          <p><strong>Clique para enviar</strong> template da empresa</p>
+          <p>PPTX, DOCX, PDF, TXT</p>
+        </div>
+        <input type="file" id="tpl_file" style="display:none" accept=".pptx,.docx,.pdf,.txt,.md" onchange="uploadTemplate(this)">
+        <div class="tpl-list" id="tpl_list"></div>
+        <button class="btn btn-sec" onclick="loadTemplates()"> Atualizar lista</button>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h2> Conteúdo / Briefing</h2>
+        <label>Cole aqui o conteúdo do Word, e-mail ou briefing</label>
+        <textarea id="briefing" placeholder="Cole aqui o conteúdo que voce quer transformar em apresentacao.
+
+Pode ser:
+- Texto de uma proposta comercial
+- Conteudo de um e-mail ou documento Word
+- Topicos e ideias que voce quer apresentar
+- Relatorio de resultados
+
+A IA vai estruturar, organizar e formatar tudo automaticamente."></textarea>
+        <div id="status" class="status"></div>
+        <button class="btn" id="gen_btn" onclick="generatePresentation()"> Gerar Apresentação com IA</button>
+        <a class="dl-btn" id="dl_btn" href="#" target="_blank"> Baixar PowerPoint</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+let selTpl = null;
+async function uploadTemplate(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const fd = new FormData();
+  fd.append('file', file);
+  showStatus('loading', 'Enviando template...');
+  try {
+    const r = await fetch('/api/upload-template', {method:'POST', body:fd});
+    const d = await r.json();
+    if (d.success) { showStatus('success', 'Template enviado!'); selTpl = d.template_key; loadTemplates(); }
+    else showStatus('error', 'Erro: ' + d.error);
+  } catch(e) { showStatus('error', 'Erro: ' + e.message); }
+}
+async function loadTemplates() {
+  try {
+    const r = await fetch('/api/list-templates');
+    const d = await r.json();
+    const el = document.getElementById('tpl_list');
+    el.innerHTML = '';
+    if (!d.templates.length) { el.innerHTML = '<p style="color:#8b949e;font-size:13px;text-align:center;padding:12px">Nenhum template enviado</p>'; return; }
+    d.templates.forEach(t => {
+      const div = document.createElement('div');
+      div.className = 'tpl-item';
+      div.innerHTML = '<span>' + t.name + '</span><span style="color:#8b949e">' + t.size_kb + ' KB</span>';
+      div.onclick = () => { selTpl = t.key; document.querySelectorAll('.tpl-item').forEach(x => x.style.borderColor='#30363d'); div.style.borderColor='#ff6b00'; };
+      el.appendChild(div);
+    });
+  } catch(e) {}
+}
+async function generatePresentation() {
+  const briefing = document.getElementById('briefing').value.trim();
+  if (!briefing) { showStatus('error', 'Cole o conteudo antes de gerar'); return; }
+  const btn = document.getElementById('gen_btn');
+  btn.disabled = true;
+  document.getElementById('dl_btn').classList.remove('show');
+  showStatus('loading', 'Estruturando conteudo com Amazon Bedrock... (15-30 segundos)');
+  const payload = {
+    doc_type: document.getElementById('doc_type').value,
+    briefing: briefing,
+    company_name: document.getElementById('company_name').value || 'Empresa',
+    client_name: document.getElementById('client_name').value || 'Cliente',
+    primary_color: document.getElementById('primary_color').value,
+    accent_color: document.getElementById('accent_color').value,
+    num_slides: parseInt(document.getElementById('num_slides').value) || 10,
+    template_key: selTpl
+  };
+  try {
+    const r = await fetch('/api/generate', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
+    const d = await r.json();
+    if (d.success) {
+      showStatus('success', 'Apresentacao gerada com ' + d.slides_count + ' slides!');
+      const dl = document.getElementById('dl_btn');
+      dl.href = d.download_url;
+      dl.classList.add('show');
+    } else showStatus('error', 'Erro: ' + d.error);
+  } catch(e) { showStatus('error', 'Erro: ' + e.message); }
+  finally { btn.disabled = false; }
+}
+function showStatus(type, msg) {
+  const el = document.getElementById('status');
+  el.className = 'status ' + type;
+  el.textContent = msg;
+}
+loadTemplates();
+</script>
+</body>
+</html>
