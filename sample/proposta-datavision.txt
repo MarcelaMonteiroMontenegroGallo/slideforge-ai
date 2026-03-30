@@ -1,0 +1,34 @@
+PROPOSTA COMERCIAL — DataVision Consultoria
+Para: TechRetail S.A.
+Data: Março 2026
+
+CONTEXTO E DESAFIO
+A TechRetail S.A. opera uma rede de 280 lojas no Brasil com dados de vendas fragmentados em 4 sistemas diferentes. O time de BI leva em média 5 dias para responder perguntas estratégicas da diretoria. A falta de visibilidade em tempo real está impactando decisões de estoque e campanhas promocionais.
+
+SOLUÇÃO PROPOSTA
+Implementação de uma plataforma de Analytics Unificada baseada em AWS com as seguintes entregas:
+
+1. Data Lake centralizado no Amazon S3 com modelo Medallion (Bronze/Silver/Gold)
+2. Integração com os 4 sistemas legados via AWS Glue e AWS DMS
+3. Dashboard executivo com Amazon QuickSight e KPIs em tempo real via Amazon Athena
+4. Amazon Bedrock para análise em linguagem natural e geração de insights automáticos
+
+BENEFÍCIOS ESPERADOS
+- Redução de 80% no tempo de resposta para análises estratégicas
+- Visibilidade de vendas em tempo real para todos os gerentes regionais
+- Redução de 40% nos tickets de BI com Amazon QuickSight self-service
+- ROI estimado em 18 meses
+
+INVESTIMENTO
+Fase 1 (Fundação): R$ 180.000 — 3 meses
+Fase 2 (Analytics): R$ 120.000 — 2 meses
+Fase 3 (IA com Bedrock): R$ 80.000 — 2 meses
+Total: R$ 380.000 em 7 meses
+
+PRÓXIMOS PASSOS
+1. Aprovação da proposta até 15/04/2026
+2. Kick-off com equipe técnica em 22/04/2026
+3. Início da Fase 1 em 01/05/2026
+
+SOBRE A DATAVISION
+A DataVision Consultoria é especializada em arquitetura de dados moderna na AWS, com 8 anos de experiência e mais de 60 projetos entregues no Brasil. Parceira oficial AWS com certificações em Data Analytics, Machine Learning e AI.
